@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: medusa-postgres
+    environment:
+      POSTGRES_USER: medusa
+      POSTGRES_PASSWORD: medusa_password
+      POSTGRES_DB: medusa_db
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - medusa-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: medusa-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - medusa-network
+
+  backend:
+    build:
+      context: ./apps/backend
+      dockerfile: Dockerfile
+    container_name: medusa-backend
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      DATABASE_URL: postgres://medusa:medusa_password@postgres:5432/medusa_db
+      REDIS_URL: redis://redis:6379
+      NODE_ENV: production
+    ports:
+      - "9000:9000"
+    networks:
+      - medusa-network
+
+  storefront:
+    build:
+      context: ./apps/storefront
+      dockerfile: Dockerfile
+    container_name: medusa-storefront
+    depends_on:
+      - backend
+    environment:
+      NEXT_PUBLIC_MEDUSA_BACKEND_URL: http://backend:9000
+    ports:
+      - "3000:3000"
+    networks:
+      - medusa-network
+
+volumes:
+  postgres_data:
+
+networks:
+  medusa-network:
+    driver: bridge
