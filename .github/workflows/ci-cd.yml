@@ -23,7 +23,6 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./apps/backend
-          dockerfile: ./apps/backend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/medusa-backend:latest
 
@@ -31,7 +30,5 @@ jobs:
         uses: docker/build-push-action@v5
         with:
           context: ./apps/storefront
-          dockerfile: ./apps/storefront/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/medusa-storefront:latest
-# trigger rebuild
