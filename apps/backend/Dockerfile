@@ -10,10 +10,8 @@ RUN pnpm install --no-frozen-lockfile
 
 COPY . .
 
-RUN pnpm build
-
 EXPOSE 9000
 
 ENV NODE_ENV=production
 
-CMD ["pnpm", "start"]
+CMD ["pnpm", "dev"]
