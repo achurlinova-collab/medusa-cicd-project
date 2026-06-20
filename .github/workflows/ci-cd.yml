@@ -34,3 +34,4 @@ jobs:
           dockerfile: ./apps/storefront/Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/medusa-storefront:latest
+# trigger rebuild
