@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: medusa-backend
+  namespace: medusa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: medusa-backend
+  template:
+    metadata:
+      labels:
+        app: medusa-backend
+    spec:
+      containers:
+        - name: medusa-backend
+          image: angelacurlinova/medusa-backend:latest
+          ports:
+            - containerPort: 9000
+          envFrom:
+            - configMapRef:
+                name: medusa-config
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: medusa-storefront
+  namespace: medusa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: medusa-storefront
+  template:
+    metadata:
+      labels:
+        app: medusa-storefront
+    spec:
+      containers:
+        - name: medusa-storefront
+          image: angelacurlinova/medusa-storefront:latest
+          ports:
+            - containerPort: 3000
+          envFrom:
+            - configMapRef:
+                name: medusa-config
