@@ -8,4 +8,5 @@ data:
   DATABASE_URL: "postgres://medusa:medusa_password@postgres:5432/medusa_db"
   REDIS_URL: "redis://redis:6379"
   NEXT_PUBLIC_MEDUSA_BACKEND_URL: "http://medusa-backend:9000"
-  NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: "pk_test_placeholder"
+  NEXT_PUBLIC_MEDUSA_PUBLISHABLE_KEY: "pk_d379b99334fbfbf01dd5914b67a9110b1f901bcc280ad200768ab1dff2233e37"
+
